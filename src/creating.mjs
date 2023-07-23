@@ -42,12 +42,12 @@ export function xhr() {
     let xhr = new XMLHttpRequest();
     xhr.open("GET", "http://localhost:3000/users/7");
     xhr.onload = () => {
-        if (xhr.status === 200) {
-            resolve(xhr.responseText);
-        } else {
-            reject(xhr.statusText);
-        }
-    }
+      if (xhr.status === 200) {
+        resolve(xhr.responseText);
+      } else {
+        reject(xhr.statusText);
+      }
+    };
     xhr.onerror = () => reject("Request Failed!");
     xhr.send();
   });
@@ -55,7 +55,25 @@ export function xhr() {
   request.then((result) => setText(result)).catch((reason) => setText(reason));
 }
 
-export function allPromises() {}
+export function allPromises() {
+  let categories = axios.get("http://localhost:3000/itemCategories");
+  let statuses = axios.get("http://localhost:3000/orderStatuses");
+  let userTypes = axios.get("http://localhost:3000/userTypes");
+  let addressTypes = axios.get("http://localhost:3000/addressTypes");
+
+  Promise.all([categories, statuses, userTypes, addressTypes])
+    .then(([cat, stat, type, address]) => {
+      setText("");
+
+      appendText(JSON.stringify(cat.data));
+      appendText(JSON.stringify(stat.data));
+      appendText(JSON.stringify(type.data));
+      appendText(JSON.stringify(address.data));
+    })
+    .catch((reasons) => {
+      setText(reasons);
+    });
+}
 
 export function allSettled() {}
 

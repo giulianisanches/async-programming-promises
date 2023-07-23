@@ -35,7 +35,7 @@ export function chainCatch() {
       return axios.get(`http://localhost:3000/addresses/${data.shippingAddress}`);
     })
     .then(({ data }) => {
-      setText(`City: ${data.my.city}`);
+      setText(`City: ${data.city}`);
     })
     .catch((err) => setText(err));
 }

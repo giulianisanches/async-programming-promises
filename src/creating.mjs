@@ -1,4 +1,4 @@
-import setText from "./results.mjs";
+import setText, { appendText } from "./results.mjs";
 
 export function timeout() {
   const wait = new Promise((resolve) => {
@@ -10,7 +10,19 @@ export function timeout() {
   wait.then((text) => setText(text));
 }
 
-export function interval() {}
+export function interval() {
+  let counter = 0;
+  const wait = new Promise((resolve) => {
+    setInterval(() => {
+      console.log("INTERVAL");
+      resolve(`Timeout! ${++counter}`);
+    }, 1500);
+  });
+
+  wait
+    .then((text) => setText(text))
+    .finally(() => appendText(` -- Done ${counter}`));
+}
 
 export function clearIntervalChain() {}
 

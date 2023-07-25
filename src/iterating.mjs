@@ -1,4 +1,4 @@
-import setText from "./results.mjs";
+import setText, { appendText } from "./results.mjs";
 
 export async function get() {
   const { data } = await axios.get("http://localhost:3000/orders/1");
@@ -23,6 +23,17 @@ export async function chain() {
   setText(`City: ${JSON.stringify(address.city)}`);
 }
 
-export function concurrent() {}
+export async function concurrent() {
+  const orderStatus = axios.get("http://localhost:3000/orderStatuses");
+  const orders = axios.get("http://localhost:3000/orders");
+
+  setText("");
+
+  const { data: statuses } = await orderStatus
+  const { data: order} = await orders;
+
+  appendText(JSON.stringify(statuses));
+  appendText(JSON.stringify(order[0]));
+}
 
 export function parallel() {}

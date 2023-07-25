@@ -20,7 +20,7 @@ export async function chain() {
     `http://localhost:3000/addresses/${data.shippingAddress}`
   );
 
-  setText(`City: ${JSON.stringify(address.city)}`);G
+  setText(`City: ${JSON.stringify(address.city)}`);
 }
 
 export function concurrent() {}

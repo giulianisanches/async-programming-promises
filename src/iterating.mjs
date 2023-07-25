@@ -14,7 +14,14 @@ export async function getCatch() {
   }
 }
 
-export function chain() {}
+export async function chain() {
+  const { data } = await axios.get("http://localhost:3000/orders/1");
+  const { data: address } = await axios.get(
+    `http://localhost:3000/addresses/${data.shippingAddress}`
+  );
+
+  setText(`City: ${JSON.stringify(address.city)}`);G
+}
 
 export function concurrent() {}
 
